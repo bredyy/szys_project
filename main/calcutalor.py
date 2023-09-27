@@ -70,22 +70,27 @@ def calculatorFunction(mylist, cal):
 
         # 插入计算的答案
         cal_list.insert(cnt, ans)
-    #
-    # global answer
-    # type0=0
-    # if ansd != 0:
-    #
-    #     answer0=ansu/ansd
-    #     for q in answer:
-    #         if answer0 == q:
-    #             ansd= 0
-    #             type0=1
-    #     if answer0>=0 & type0==0:
-    #         answer.append(answer0)
 
 
     ans1 = [[ansu, ansd]]
     return ans1
+
+def judgeOnly(ans1):
+    global answer
+    ansu=ans1[0][0]
+    ansd=ans1[0][1]
+    type0 = 0
+    if ansd != 0:
+        answer0 = ansu / ansd
+        for q in answer:
+            if answer0 == q:
+                ansd = 0
+                type0 = 1
+        if answer0 >= 0 & type0 == 0:
+            answer.append(answer0)
+    return ([[ansu,ansd]])
+
+
 
 
 # 定义函数-约分
@@ -201,7 +206,7 @@ def printAnswer(ans, cnt):
         print("ERROR: The part of printing answer is wrong.")
 
 
-def answerJudge(cnt):
+def answerJudge():
     list_an = []
     list_an_calcutalor = []
     # 输入答案
@@ -216,6 +221,7 @@ def answerJudge(cnt):
         # if i != 10:
         an = an.replace('\n', '')
         list_an.append(an)
+    cnt=len(list_an)
     list_an_calcutalor = calcutalorFileExercise()
     list_zuihou=[]
     for line in list_an_calcutalor:
@@ -378,7 +384,7 @@ def main():
         # 计算答案
         list_ans = calculatorFunction(mylist, cal)
         #判断题目是否相同，如果一样将list_ans中的第二个数即分母乘以-1
-
+        list_ans=judgeOnly(list_ans)
 
 
 
@@ -393,6 +399,8 @@ def main():
 
 
 # -----执行主函数-----
-#main()
-a,b,c,d=answerJudge(15)
+main()
+
+a,b,c,d=answerJudge()
 saveJudge(a,b,c,d)
+
